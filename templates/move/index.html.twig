@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Movies
+{% endblock %}
+
+{% block body %}
+	{% for movie in movies %}
+		<div style=" margin: 1rem; padding: 1 rem; border: 2px black solid;">
+			<h3>Нахвание:
+				{{movie.title}}</h3>
+                <img src="{{asset('uploads/image/img.jpg')}}", style="max-height: 100px; object-fit: cover;"></img>
+			<h3>Описание:
+				{{movie.description}}</h3>
+			<h3>Продолжительность:
+				{{movie.duration}}</h3>
+			<h3>Возрасной рейтинг:
+				{{movie.ageRating  }}</h3>
+		</div>
+
+	{% endfor %}
+{% endblock %}
