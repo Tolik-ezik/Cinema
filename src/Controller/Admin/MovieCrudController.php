@@ -36,6 +36,8 @@ class MovieCrudController extends AbstractCrudController
         yield IdField::new('id')->hideOnForm();
         yield TextField::new('title');
         yield TextareaField::new('description');
+        yield AssociationField::new('genres')
+        ->setFormTypeOption('by_reference', false);
         yield IntegerField::new('duration');
         yield ChoiceField::new('ageRating')
         ->setLabel('Age Reating')

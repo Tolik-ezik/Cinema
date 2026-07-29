@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MovieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
@@ -30,6 +32,24 @@ class Movie
 
     #[ORM\Column]
     private ?bool $isActive = null;
+
+    /**
+     * @var Collection<int, Genre>
+     */
+    #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'movies')]
+    private Collection $genres;
+
+    /**
+     * @var Collection<int, Screening>
+     */
+    #[ORM\OneToMany(targetEntity: Screening::class, mappedBy: 'movie')]
+    private Collection $screenings;
+
+    public function __construct()
+    {
+        $this->genres = new ArrayCollection();
+        $this->screenings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,6 +124,60 @@ class Movie
     public function setIsActive(bool $isActive): static
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Genre>
+     */
+    public function getGenres(): Collection
+    {
+        return $this->genres;
+    }
+
+    public function addGenre(Genre $genre): static
+    {
+        if (!$this->genres->contains($genre)) {
+            $this->genres->add($genre);
+        }
+
+        return $this;
+    }
+
+    public function removeGenre(Genre $genre): static
+    {
+        $this->genres->removeElement($genre);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Screening>
+     */
+    public function getScreenings(): Collection
+    {
+        return $this->screenings;
+    }
+
+    public function addScreening(Screening $screening): static
+    {
+        if (!$this->screenings->contains($screening)) {
+            $this->screenings->add($screening);
+            $screening->setMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeScreening(Screening $screening): static
+    {
+        if ($this->screenings->removeElement($screening)) {
+            // set the owning side to null (unless already changed)
+            if ($screening->getMovie() === $this) {
+                $screening->setMovie(null);
+            }
+        }
 
         return $this;
     }
