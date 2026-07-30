@@ -136,10 +136,16 @@ class Movie
         return $this->genres;
     }
 
-    public function addGenre(Genre $genre): static
+    public function addGenre(Genre|array $genres): static
     {
-        if (!$this->genres->contains($genre)) {
-            $this->genres->add($genre);
+        if(!is_array($genres)) {
+            $genres = [$genres];
+        }
+        
+        foreach ($genres as $genre) {
+            if (!$this->genres->contains($genre)) {
+                $this->genres->add($genre);
+            }
         }
 
         return $this;
