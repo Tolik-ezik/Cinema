@@ -10,7 +10,6 @@ use Doctrine\Persistence\ObjectManager;
 class MovieFixtures extends Fixture implements DependentFixtureInterface
 {
     public const MOVIE_1 = 'movie-1';
-    public const MOVIE_2 = 'movie-1';
 
     public function load(ObjectManager $manager): void
     {
@@ -29,6 +28,7 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
         $movie1->setIsActive(true);
         $movie1->addGenre([$fantasy, $drama]);
         $manager->persist($movie1);
+        $this->addReference(self::MOVIE_1, $movie1);
 
         $movie2 = new Movie();
         $movie2->setTitle('Один дома');
