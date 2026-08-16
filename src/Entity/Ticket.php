@@ -27,7 +27,7 @@ class Ticket
     private ?Seat $seat = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $prise = null;
+    private ?string $price = null;
 
     #[ORM\Column(length: 50)]
     private ?string $status = null;
@@ -73,14 +73,14 @@ class Ticket
         return $this;
     }
 
-    public function getPrise(): ?string
+    public function getPrice(): ?string
     {
-        return $this->prise;
+        return $this->price;
     }
 
-    public function setPrise(string $prise): static
+    public function setPrice(string $price): static
     {
-        $this->prise = $prise;
+        $this->price = $price;
 
         return $this;
     }

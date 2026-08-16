@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Movies
+{% endblock %}
+
+{% block body %}
+	{% for movie in movies %}
+		<div	style=" margin: 1rem; padding: 1 rem; border: 2px black solid;">
+			<h3>
+				Название:
+				<a	href="{{ path('movie', {id: movie.id}) }}">
+					{{ movie.title }}
+				</a>
+			</h3>
+			<img	src="{{ asset('uploads/image/' ~ movie.poster) }}"	,	style="max-height: 200px; object-fit: cover;"	alt="{{ movie.title }}"></img>
+			<h3>
+				Продолжительность:
+				{{ movie.duration }}
+			</h3>
+			<h3>
+				Возрасной рейтинг:
+				{{ movie.ageRating }}
+			</h3>
+		</div>
+	{% else %}
+		<h3>
+			Пока фильмов нет
+		</h3>
+	{% endfor %}
+{% endblock %}

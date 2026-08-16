@@ -17,14 +17,14 @@ class BookingFixtures extends Fixture implements DependentFixtureInterface
         $booking->setCreateAt(new \DateTimeImmutable());
         $booking->setTotalPrice(600);
         $booking->setStatus('paid');
-        $booking->setOwmer($this->getReference(UserFixtures::Ivan, \App\Entity\User::class));
+        $booking->setOwner($this->getReference(UserFixtures::Ivan, \App\Entity\User::class));
         $manager->persist($booking);
 
         $ticket = new Ticket();
         $ticket->setBooking($booking);
         $ticket->setScreening($this->getReference(ScreeningFixtures::Screenig, \App\Entity\Screening::class));
         $ticket->setSeat($manager->getRepository(Seat::class)->findOneBy([]));
-        $ticket->setPrise(300);
+        $ticket->setPrice(300);
         $ticket->setStatus('confirmed');
         $manager->persist($ticket);
 

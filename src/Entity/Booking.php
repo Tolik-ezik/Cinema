@@ -27,7 +27,7 @@ class Booking
 
     #[ORM\ManyToOne(inversedBy: 'booking')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $owmer = null;
+    private ?User $owner = null;
 
     /**
      * @var Collection<int, Ticket>
@@ -81,14 +81,14 @@ class Booking
         return $this;
     }
 
-    public function getOwmer(): ?User
+    public function getOwner(): ?User
     {
-        return $this->owmer;
+        return $this->owner;
     }
 
-    public function setOwmer(?User $owmer): static
+    public function setOwner(?User $owmer): static
     {
-        $this->owmer = $owmer;
+        $this->owner = $owmer;
 
         return $this;
     }

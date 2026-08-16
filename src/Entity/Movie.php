@@ -30,9 +30,6 @@ class Movie
     #[ORM\Column(length: 255)]
     private ?string $poster = null;
 
-    #[ORM\Column]
-    private ?bool $isActive = null;
-
     /**
      * @var Collection<int, Genre>
      */
@@ -112,18 +109,6 @@ class Movie
     public function setPoster(string $poster): static
     {
         $this->poster = $poster;
-
-        return $this;
-    }
-
-    public function isActive(): ?bool
-    {
-        return $this->isActive;
-    }
-
-    public function setIsActive(bool $isActive): static
-    {
-        $this->isActive = $isActive;
 
         return $this;
     }

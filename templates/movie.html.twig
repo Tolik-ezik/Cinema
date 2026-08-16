@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ movie.title }}
+{% endblock %}
+
+{% block body %}
+    <a href="{{ path('index') }}">
+        Назад к списку
+    </a>
+
+    <h1>
+        {{ movie.title }}
+    </h1>
+    {% if movie.poster %}
+        <img src="{{ asset('uploads/image/' ~ movie.poster) }}" , style="max-height: 200px; object-fit: cover;" alt="{{ movie.title }}"></img>
+    {% endif %}
+    <h2>
+        Описание
+    </h2>
+    <p>
+        {{ movie.description }}
+    </p>
+    <p>
+        Продолжительность:
+        {{ movie.duration }}
+        минут
+    </p>
+    <p>
+        Возрасной рейтинг:
+        {{ movie.ageRating }}
+    </p>
+    {% if movie.genres|length > 0 %}
+        <p>
+            Жанры:
+            {% for genre in movie.genres %}
+                {{ genre.name }}
+                ,
+            {% endfor %}
+        </p>
+    {% endif %}
+
+    {% if movie.screenings|length > 0 %}
+        {% for screening in movie.screenings %}
+            {% if screening.status === 'active' %}
+                <h5>
+                    Начало сеанса:
+                    <a href="{{ path('screening', {id: screening.id}) }}">
+                        {{ screening.startAt|date('d.m.Y H:i') }}
+                    </a>
+                </h5>
+            {% endif %}
+        {% else %}
+            <p>
+                Доступных сеансов нет
+            </p>
+        {% endfor %}
+    {% else %}
+        <h4>
+            На этот фильм пока нет сеансов
+        </h4>
+    {% endif %}
+{% endblock %}
